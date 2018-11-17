@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script  th:inline="javascript" >
+        window.onload=function () {
+            window.open("http://localhost:8087/pay/goalipay?orderid="+[[${orderid}]],"_blank");
+        }
+
+        function payok() {
+            location.href = "http://localhost:8087/pay/isok?orderid="+[[${orderid}]];
+        }
+
+    </script>
+
+</head>
+<body>
+        <h1 style="color: blue">正在支付，请稍后...</h1>
+        <br/>
+        <button onclick="payok();" style="background: green" >支付已完成</button>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button style="background: yellow" href="http://www.baidu.com" >支付遇到问题</button>
+</body>
+</html>

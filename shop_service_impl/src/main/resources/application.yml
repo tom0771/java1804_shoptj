@@ -1,0 +1,23 @@
+#命名
+dubbo:
+  application:
+    name: shop_service
+    #dubbo注册地址
+  registry:
+    address: zookeeper://192.168.25.128:2181
+    #设置端口号
+server:
+  port: 8081
+  #设置数据源
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql:///tjshop
+    driver-class-name: com.mysql.jdbc.Driver
+    #连接池类型
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+    #在mybatis中设置实体类别名与扫描父类的xml配置文件路径
+mybatis:
+  type-aliases-package: com.qf.entity
+  mapper-locations: classpath*:com/qf/dao/mapper/*.xml

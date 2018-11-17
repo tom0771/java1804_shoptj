@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+        <!-- 采购的映射文件 -->
+<mapper namespace="com.qf.dao.ICartDao">
+
+    <resultMap id="CartMap" type="cart">
+        <id property="id" column="id"/>
+        <result property="gsid" column="gsid"/>
+        <result property="goodsnums" column="goodsnums"/>
+        <result property="uid" column="uid"/>
+
+        <association property="goods" javaType="goods">
+            <id property="id" column="gsid"/>
+            <result property="title" column="title"/>
+            <result property="ginfo" column="ginfo"/>
+            <result property="gcount" column="gcount"/>
+            <result property="allprice" column="allprice"/>
+            <result property="price" column="price"/>
+            <result property="gimage" column="gimage"/>
+        </association>
+
+    </resultMap>
+
+    <select id="queryAllByUid" resultType="cart">
+        SELECT  * from shopcart where uid=#{uid}
+    </select>
+
+    <insert id="addCart" useGeneratedKeys="true" keyProperty="id">
+      INSERT  INTO  shopcart VALUES (null,#{gsid},#{goodsnums},#{uid})
+    </insert>
+
+    <delete id="deleteByid">
+        DELETE  FROM shopcart WHERE id =#{id}
+    </delete>
+
+    <delete id="deleteCartByUid">
+        DELETE  FROM  shopcart where uid = #{uid}
+    </delete>
+
+    <select id="getCartBygsidAnduid" resultType="cart">
+        SELECT * FROM shopcart where uid=#{uid} AND gsid IN
+        <foreach collection="gsid" item="gid" open="(" close=")" separator=",">
+            #{gid}
+        </foreach>
+    </select>
+
+    <select id="queryIsGoods" resultType="cart">
+        select * from shopcart where uid =#{uid} and gsid=#{gsid}
+    </select>
+
+    <update id="updateGoodsnums" >
+        UPDATE shopcart set goodsnums=#{goodsnums} WHERE  id=#{id}
+    </update>
+
+    <select id="queryByCids" resultMap="CartMap">
+        select * from shopcart sc JOIN goods g on sc.gsid=g.id WHERE sc.id in
+        <foreach collection="cids" item="cid" open="(" close=")" separator=",">
+          #{cid}
+        </foreach>
+    </select>
+
+</mapper>
+

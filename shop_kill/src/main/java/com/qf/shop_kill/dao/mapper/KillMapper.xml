@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+        <!-- 采购的映射文件 -->
+<mapper namespace="com.qf.shop_kill.dao.IKillDao">
+
+
+
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into orders value(null, #{orderid}, #{uid}, #{person}, #{address}, #{phone}, #{code}, #{oprice}, #{status}, #{ordertime});
+    </insert>
+
+    <insert id="addOrders">
+    INSERT  INTO  orders VALUES
+    <foreach collection="orders" item="order" separator=",">
+        (null, #{order.orderid}, #{order.uid}, #{order.person}, #{order.address},
+        #{order.phone}, #{order.code}, #{order.oprice}, #{order.status}, #{order.ordertime})
+    </foreach>
+
+    </insert>
+
+    <select id="queryKillById" resultType="kill">
+        select * from miaosha WHERE  id = #{id}
+    </select>
+
+    <update id="updatesave">
+        update miaosha set save = save - #{number} where id = #{id}
+    </update>
+
+    <update id="updateSaveNumber">
+        UPDATE  miaosha SET  save=#{save} WHERE id=#{id}
+    </update>
+
+
+
+</mapper>
+

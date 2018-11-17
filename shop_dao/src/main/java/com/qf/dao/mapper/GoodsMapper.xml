@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+        <!-- 采购的映射文件 -->
+<mapper namespace="com.qf.dao.IGoodsDao">
+
+<select id="getAllGoods" resultType="goods">
+    select * from goods
+</select>
+
+<insert id="addGoods" useGeneratedKeys="true" keyProperty="id">
+    INSERT  INTO  goods VALUE (NULL ,#{title},#{ginfo},
+    #{gcount},#{tid},#{allprice},#{price},#{gimage}
+    )
+
+</insert>
+
+<select id="getnewGoods" resultType="goods">
+    select * from  goods ORDER BY id DESC  limit 4;
+</select>
+
+<select id="queryGoodsById" resultType="goods">
+    SELECT  * from goods where id = #{gsid}
+</select>
+
+</mapper>
+
